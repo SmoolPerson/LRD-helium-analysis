@@ -10,7 +10,7 @@ This project aims to plot and calculate flux ratios of the He I 5876 and He I 70
 
 `cd LRD-helium-analysis`
 
-Install Python and venv using your package manager if it is not installed by default. For instance, for the `apt` package manager:
+Install Python and venv using your package manager (these may already be installed by default, but only on some systems). For debian systems, the command would be:
 
 `sudo apt install python3 python3-venv`
 
