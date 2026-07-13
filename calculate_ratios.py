@@ -9,13 +9,13 @@ ratios_dict = {"Observation": [], "Flux Ratio": [], "Flux Ratio Error": []}
 
 for i in range(len(df)):
     current_row = df.iloc[i]
-    print(type(current_row.loc["Profile Flux-He1_7065A"]))
     if np.isnan(current_row.loc["Profile Flux-He1_7065A"])  or np.isnan(current_row.loc["Profile Flux-He1_5876A"]):
         continue
-    ratio = current_row.loc["Profile Flux-He1_5876A"]/current_row.loc["Profile Flux-He1_7065A"]
+    ratio = current_row.loc["Profile Flux-He1_7065A"]/current_row.loc["Profile Flux-He1_5876A"]
 
     relative_error1 = current_row.loc["Profile Flux Error-He1_5876A"]/current_row.loc["Profile Flux-He1_5876A"]
     relative_error2 = current_row.loc["Profile Flux Error-He1_7065A"]/current_row.loc["Profile Flux-He1_7065A"]
+    print(relative_error1, relative_error2)
     ratios_dict["Observation"].append(current_row.loc["Observation"])
     ratios_dict["Flux Ratio"].append(ratio)
     ratios_dict["Flux Ratio Error"].append(ratio * (relative_error1 + relative_error2))

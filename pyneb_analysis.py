@@ -32,7 +32,7 @@ for j in range(STEPS):
         he1_5876 = he1.getEmissivity(temp, den, wave=5876)
         he1_7065 = he1.getEmissivity(temp, den, wave=7065)
 
-        matrix[j, i] = he1_5876/he1_7065
+        matrix[j, i] = he1_7065/he1_5876
         for k in range(len(df)):
             row = df.iloc[k]
             diff = abs(float(row.loc["Flux Ratio"]) - matrix[j, i])
@@ -53,25 +53,21 @@ plt.scatter(x_coords, y_coords, color='red', marker='x')
 plt.savefig("pyneb_plots/emissivity_matrix.png")
 plt.clf()
 
-# final plot
-print(list(df.loc[:, "Flux Ratio"]))
-print(closest_ratios)
-
 # plot lines for each density
 for i in range(0, STEPS, 10):
     den_val = (i/STEPS) * (STOP_DEN - START_DEN) + START_DEN
     line_plot = []
     for j in range(STEPS):
         line_plot.append(matrix[i, j])
-    plt.plot(temperatures, line_plot, linestyle='--', label="Density ($cm^{-3}$): " +  f"{den_val:.2e}")
+    plt.plot(temperatures, line_plot, linestyle='--', label=str(round((den_val/10**12), 3)))
 
 plt.xlabel("Temperature (K)")
-plt.ylabel("Flux ratio")
-plt.legend()
+plt.ylabel("Flux ratio (He I $\\lambda$7065/He I $\\lambda$5876)")
+plt.legend(title="Density ($10^{12} cm^{-3}$)")
 for i in range(len(labels)): # not working idk why
     x_coord = x_coords[i]
     y_coord = list(df.loc[:, "Flux Ratio"])[i]
     plt.annotate(labels[i], (x_coord, y_coord), textcoords='offset points', xytext=(5, 5), color="orange", fontsize=7, xycoords="data")
-plt.scatter(x_coords, list(df.loc[:, "Flux Ratio"]), color='red', marker='x')
-plt.errorbar(x_coords, list(df.loc[:, "Flux Ratio"]), yerr=list(df.loc[:, "Flux Ratio Error"]), fmt='o')
+#plt.scatter(x_coords, list(df.loc[:, "Flux Ratio"]), color='red', marker='x')
+plt.errorbar(np.array(x_coords) + (np.random.rand(len(x_coords)) * 1000), list(df.loc[:, "Flux Ratio"]), yerr=list(df.loc[:, "Flux Ratio Error"]), fmt='o', capsize=6)
 plt.savefig("pyneb_plots/final_plot.png")
