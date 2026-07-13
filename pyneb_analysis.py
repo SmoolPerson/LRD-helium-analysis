@@ -63,7 +63,7 @@ for i in range(0, STEPS, 10):
     line_plot = []
     for j in range(STEPS):
         line_plot.append(matrix[i, j])
-    plt.plot(temperatures, line_plot, linestyle='--', label=f"Density: {den_val:.2e}")
+    plt.plot(temperatures, line_plot, linestyle='--', label="Density ($cm^{-3}$): " +  f"{den_val:.2e}")
 
 plt.xlabel("Temperature (K)")
 plt.ylabel("Flux ratio")
@@ -73,4 +73,5 @@ for i in range(len(labels)): # not working idk why
     y_coord = list(df.loc[:, "Flux Ratio"])[i]
     plt.annotate(labels[i], (x_coord, y_coord), textcoords='offset points', xytext=(5, 5), color="orange", fontsize=7, xycoords="data")
 plt.scatter(x_coords, list(df.loc[:, "Flux Ratio"]), color='red', marker='x')
+plt.errorbar(x_coords, list(df.loc[:, "Flux Ratio"]), yerr=list(df.loc[:, "Flux Ratio Error"]), fmt='o')
 plt.savefig("pyneb_plots/final_plot.png")
