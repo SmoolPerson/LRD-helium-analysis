@@ -6,7 +6,7 @@ import pandas as pd
 
 STEPS = 50
 
-START_TEMP = 7500
+START_TEMP = 7600
 STOP_TEMP = 25000
 START_DEN = 1e4
 STOP_DEN = 1e13
@@ -61,7 +61,7 @@ print(dot_temperatures)
 print(list(df.loc[:, "Flux Ratio"]))
 
 # plot lines for each density
-for i in range(0, STEPS, 5):
+for i in range(0, STEPS, 10):
     den_val = (i/STEPS) * (STOP_DEN - START_DEN) + START_DEN
     line_plot = []
     for j in range(STEPS):

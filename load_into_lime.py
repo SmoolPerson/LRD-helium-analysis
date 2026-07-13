@@ -7,8 +7,7 @@ import os
 import pandas as pd
 
 REDSHIFT_VALUES = {1794: 3.681, 161695: 5.666, 169045: 5.239, 33842: 5.287, 101208: 5.682, 101393: 3.850, 100424: 4.953, 102364: 4.542, 35829: 6.684, 20504: 5.276}
-columns = {"Observation": [], "Emission Line": [], "Profile Flux": [], "Profile Flux Error": [], "Integrated Flux": []}
-
+columns = {"Observation": [], "Profile Flux-He1_7065A": [], "Profile Flux Error-He1_7065A": [], "Profile Flux-He1_5876A": [], "Profile Flux Error-He1_5876A": []}
 def get_data_files():
     data_files = os.listdir('data')
     all_data = []
@@ -45,17 +44,13 @@ def profile(spec, plot_name, actual_lines, line):
         # Retrieve measurements from dataframe
         profile_flux = spec.frame.loc[line, 'profile_flux']
         profile_flux_err = spec.frame.loc[line, 'profile_flux_err']
-        intg_flux = spec.frame.loc[line, 'intg_flux']
-        
+
         # the three sigma rule
         if profile_flux > 2 * profile_flux_err:
-            columns['Observation'].append(plot_name[4:]) # remove instrument bc not important
-            columns['Emission Line'].append(line)
-            columns['Profile Flux'].append(profile_flux)
-            columns['Profile Flux Error'].append(profile_flux_err)
-            columns['Integrated Flux'].append(intg_flux)
-
+            
             spec.plot.bands(fname='plots/profile-' + plot_name + '-' + line + '.png')
+            return (profile_flux, profile_flux_err)
+    return (None, None)
 
 def analyze(data_file, dot_id, plot_name):
     wave, flux = load(data_file)
@@ -70,9 +65,24 @@ def analyze(data_file, dot_id, plot_name):
     #print("Actual Lines:", actual_lines)
 
     # Also finds the flux
-    profile(spec, plot_name, actual_lines, 'He1_7065A')
+    profile_flux1, profile_flux_error1 = profile(spec, plot_name, actual_lines, 'He1_7065A')
 
-    profile(spec, plot_name, actual_lines, 'He1_5876A')
+    profile_flux2, profile_flux_error2 = profile(spec, plot_name, actual_lines, 'He1_5876A')
+
+    columns['Observation'].append(plot_name)
+
+    if (profile_flux1 is not None and profile_flux1 < profile_flux_error1 * 2):
+        profile_flux1 = None
+        profile_flux_error1 = None
+
+    if (profile_flux2 is not None and profile_flux2 < profile_flux_error2 * 2):
+        profile_flux2 = None
+        profile_flux_error2 = None
+    
+    columns['Profile Flux-' + "He1_7065A"].append(profile_flux1)
+    columns['Profile Flux Error-' + "He1_7065A"].append(profile_flux_error1)
+    columns['Profile Flux-' + "He1_5876A"].append(profile_flux2)
+    columns['Profile Flux Error-' + "He1_5876A"].append(profile_flux_error2)
 
     spec.plot.spectrum(bands=actual_lines, show_cont=True, fname='spectrum-plots/detected_lines-' + plot_name + '.png')
 
@@ -80,6 +90,6 @@ little_red_dots = get_data_files()
 
 for data_file, dot_id, plot_name in little_red_dots:
     analyze(data_file, dot_id, plot_name)
-
+print(columns)
 df = pd.DataFrame(columns)
 df.to_csv('flux/fluxes.csv', index=False)
