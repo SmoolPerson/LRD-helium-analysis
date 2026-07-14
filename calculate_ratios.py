@@ -18,7 +18,7 @@ for i in range(len(df)):
     print(relative_error1, relative_error2)
     ratios_dict["Observation"].append(current_row.loc["Observation"])
     ratios_dict["Flux Ratio"].append(ratio)
-    ratios_dict["Flux Ratio Error"].append(ratio * (relative_error1 + relative_error2))
+    ratios_dict["Flux Ratio Error"].append(ratio * np.sqrt(relative_error1*relative_error1 + relative_error2*relative_error2))
 
 ratios_df = pd.DataFrame(ratios_dict)
 ratios_df.to_csv('flux/flux_ratios.csv', index=False)

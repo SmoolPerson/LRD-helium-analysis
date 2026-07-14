@@ -31,10 +31,11 @@ def load(dot):
 
     # converting flux units to FLAM instead of Jansky to avoid integration errors
     fixed_flux = []
+    fixed_flux_err = []
     for i in range(len(flux)):
         fixed_flux.append((flux[i] * u.Jy).to(u.erg / (u.cm * u.cm * u.s * u.AA), equivalencies=u.spectral_density(wave[i] * u.AA)).value)
-    
-    return (wave, np.array(fixed_flux))
+        fixed_flux_err.append((error[i] * u.Jy).to(u.erg / (u.cm * u.cm * u.s * u.AA), equivalencies=u.spectral_density(wave[i] * u.AA)).value)
+    return (wave, np.array(fixed_flux), np.array(fixed_flux_err))
 
 def profile(spec, plot_name, actual_lines, line):
     if line in list(actual_lines['wavelength'].keys()):
@@ -53,9 +54,9 @@ def profile(spec, plot_name, actual_lines, line):
     return (None, None)
 
 def analyze(data_file, dot_id, plot_name):
-    wave, flux = load(data_file)
+    wave, flux, error = load(data_file)
     print("Loading: ", plot_name)
-    spec = lime.Spectrum(wave, flux, redshift=REDSHIFT_VALUES[int(dot_id)], units_flux='FLAM')
+    spec = lime.Spectrum(wave, flux, error, redshift=REDSHIFT_VALUES[int(dot_id)], units_flux='FLAM')
 
     # Starts with a large tolerance of 3 standard devs, then gradually tightens the continuum
     spec.fit.continuum([3, 3, 3], [3.0, 2.0, 1.0])
