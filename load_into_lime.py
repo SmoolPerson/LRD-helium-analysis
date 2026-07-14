@@ -8,6 +8,7 @@ import pandas as pd
 
 REDSHIFT_VALUES = {1794: 3.681, 161695: 5.666, 169045: 5.239, 33842: 5.287, 101208: 5.682, 101393: 3.850, 100424: 4.953, 102364: 4.542, 35829: 6.684, 20504: 5.276}
 columns = {"Observation": [], "Profile Flux-He1_7065A": [], "Profile Flux Error-He1_7065A": [], "Profile Flux-He1_5876A": [], "Profile Flux Error-He1_5876A": []}
+
 def get_data_files():
     data_files = os.listdir('data')
     all_data = []
@@ -53,6 +54,14 @@ def profile(spec, plot_name, actual_lines, line):
             return (profile_flux, profile_flux_err)
     return (None, None)
 
+def write_data(profile_flux, profile_flux_error, line_name):
+    if (profile_flux is not None and profile_flux < profile_flux_error * 2):
+        profile_flux = None
+        profile_flux_error = None
+    
+    columns['Profile Flux-' + line_name].append(profile_flux)
+    columns['Profile Flux Error-' + line_name].append(profile_flux_error)
+
 def analyze(data_file, dot_id, plot_name):
     wave, flux, error = load(data_file)
     print("Loading: ", plot_name)
@@ -72,25 +81,20 @@ def analyze(data_file, dot_id, plot_name):
 
     columns['Observation'].append(plot_name)
 
-    if (profile_flux1 is not None and profile_flux1 < profile_flux_error1 * 2):
-        profile_flux1 = None
-        profile_flux_error1 = None
-
-    if (profile_flux2 is not None and profile_flux2 < profile_flux_error2 * 2):
-        profile_flux2 = None
-        profile_flux_error2 = None
-    
-    columns['Profile Flux-' + "He1_7065A"].append(profile_flux1)
-    columns['Profile Flux Error-' + "He1_7065A"].append(profile_flux_error1)
-    columns['Profile Flux-' + "He1_5876A"].append(profile_flux2)
-    columns['Profile Flux Error-' + "He1_5876A"].append(profile_flux_error2)
+    write_data(profile_flux1, profile_flux_error1, "He1_7065A")
+    write_data(profile_flux2, profile_flux_erro21, "He1_5876A")
 
     spec.plot.spectrum(bands=actual_lines, show_cont=True, fname='spectrum-plots/detected_lines-' + plot_name + '.png')
 
-little_red_dots = get_data_files()
 
-for data_file, dot_id, plot_name in little_red_dots:
-    analyze(data_file, dot_id, plot_name)
-print(columns)
-df = pd.DataFrame(columns)
-df.to_csv('flux/fluxes.csv', index=False)
+def main():
+    little_red_dots = get_data_files()
+
+    for data_file, dot_id, plot_name in little_red_dots:
+        analyze(data_file, dot_id, plot_name)
+
+    df = pd.DataFrame(columns)
+    df.to_csv('flux/fluxes.csv', index=False)
+
+if __name__ == "__main__":
+    main()
