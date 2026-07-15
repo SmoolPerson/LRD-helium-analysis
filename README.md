@@ -2,7 +2,7 @@
 
 ## Explanation
 
-This project aims to plot and calculate flux ratios of the He I 5876 and He I 7065 lines in the spectrum of Little Red Dots (LRDs). It then compares each flux ratio to a predicted matrix of density and temperature values to provide an estimate of those metrics. It is still a work in progress, so not all programs behave as intended currently. The data used for this program is not available to the public.
+This project aims to plot and calculate flux ratios of the He I 5876 and He I 7065 lines in the spectrum of Little Red Dots (LRDs). It then compares each flux ratio to a predicted matrix of density and temperature values to provide an estimate of those metrics. The data used for this program is not available to the public.
 
 ## Usage
 
