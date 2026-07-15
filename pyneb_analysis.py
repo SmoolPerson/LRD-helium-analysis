@@ -66,7 +66,7 @@ def plot_points(temperatures):
         y_coord = df.loc[:, "Flux Ratio"][i]
         plt.annotate(labels[i], (x_coord, y_coord), textcoords='offset points', xytext=(5, 5), color="orange", fontsize=7, xycoords="data")
     #plt.scatter(x_coords, list(df.loc[:, "Flux Ratio"]), color='red', marker='x')
-    plt.errorbar(np.array(x_coords) + (np.random.rand(len(x_coords)) * 1000), list(df.loc[:, "Flux Ratio"]), yerr=list(df.loc[:, "Flux Ratio Error"]), fmt='o', capsize=6)
+    plt.errorbar(x_coords, list(df.loc[:, "Flux Ratio"]), yerr=list(df.loc[:, "Flux Ratio Error"]), fmt='o', capsize=6)
     plt.savefig("pyneb_plots/final_plot.png")
 
 def main():
@@ -77,9 +77,6 @@ def main():
     plot_density_lines(matrix, density, temperatures)
     set_axes()
     plot_points(temperatures)
-
-
-
 
 if __name__ == "__main__":
     main()
