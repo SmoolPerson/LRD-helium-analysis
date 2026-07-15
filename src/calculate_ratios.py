@@ -3,9 +3,9 @@ import numpy as np
 import sys
 
 if len(sys.argv) >= 2 and sys.argv[1] == "--dust-correction":
-    df = pd.read_csv('flux/fluxes-corrected.csv')
+    df = pd.read_csv('../flux/fluxes-corrected.csv')
 else:
-    df = pd.read_csv('flux/fluxes.csv')
+    df = pd.read_csv('../flux/fluxes.csv')
 
 df = df.sort_values(by='Observation')
 
@@ -26,6 +26,6 @@ for i in range(len(df)):
 ratios_df = pd.DataFrame(ratios_dict)
 
 if len(sys.argv) >= 2 and sys.argv[1] == "--dust-correction":
-    ratios_df.to_csv('flux/flux_ratios_corrected.csv', index=False)
+    ratios_df.to_csv('../flux/flux_ratios_corrected.csv', index=False)
 else:
-    ratios_df.to_csv('flux/flux_ratios.csv', index=False)
+    ratios_df.to_csv('../flux/flux_ratios.csv', index=False)

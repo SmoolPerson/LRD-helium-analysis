@@ -12,7 +12,7 @@ REDSHIFT_VALUES = {1794: 3.681, 161695: 5.666, 169045: 5.239, 33842: 5.287, 1012
 columns = {"Observation": [], "Profile Flux-He1_7065A": [], "Profile Flux Error-He1_7065A": [], "Profile Flux-He1_5876A": [], "Profile Flux Error-He1_5876A": []}
 
 def get_data_files():
-    data_files = os.listdir('data')
+    data_files = os.listdir('../data')
     all_data = []
     for data_file in data_files:
         # the name of the astronomical object
@@ -23,7 +23,7 @@ def get_data_files():
     return all_data
 
 def load(dot, dot_id):
-    hdul = fits.open('data/' + dot)
+    hdul = fits.open('../data/' + dot)
 
     wave = hdul[1].data["WAVELENGTH"]
     flux = hdul[1].data["FLUX"]
@@ -62,7 +62,7 @@ def profile(spec, plot_name, actual_lines, line):
         # the three sigma rule
         if profile_flux > 2 * profile_flux_err:
             
-            spec.plot.bands(fname='plots/profile-' + plot_name + '-' + line + '.png')
+            spec.plot.bands(fname='../plots/profile-' + plot_name + '-' + line + '.png')
             return (profile_flux, profile_flux_err)
     return (None, None)
 
@@ -96,7 +96,7 @@ def analyze(data_file, dot_id, plot_name):
     write_data(profile_flux1, profile_flux_error1, "He1_7065A")
     write_data(profile_flux2, profile_flux_error2, "He1_5876A")
 
-    spec.plot.spectrum(bands=actual_lines, show_cont=True, fname='spectrum-plots/detected_lines-' + plot_name + '.png')
+    spec.plot.spectrum(bands=actual_lines, show_cont=True, fname='../spectrum-plots/detected_lines-' + plot_name + '.png')
 
 
 def main():
@@ -107,9 +107,9 @@ def main():
 
     df = pd.DataFrame(columns)
     if len(sys.argv) >= 2 and sys.argv[1] == "--dust-correction":
-        df.to_csv('flux/fluxes-corrected.csv', index=False)
+        df.to_csv('../flux/fluxes-corrected.csv', index=False)
         return
-    df.to_csv('flux/fluxes.csv', index=False)
+    df.to_csv('../flux/fluxes.csv', index=False)
 
 if __name__ == "__main__":
     main()

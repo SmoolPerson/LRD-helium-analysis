@@ -17,10 +17,10 @@ he1 = pn.RecAtom('He', 1)
 
 df = None
 if len(sys.argv) >= 2 and sys.argv[1] == "--dust-correction":
-    df = pd.read_csv('flux/flux_ratios_corrected.csv')
+    df = pd.read_csv('../flux/flux_ratios_corrected.csv')
     ERROR_COLOR = "red"
 else:
-    df = pd.read_csv('flux/flux_ratios.csv')
+    df = pd.read_csv('../flux/flux_ratios.csv')
 
 closest_ratios = [float('inf')] * len(df)
 x_coords = [0] * len(df)
@@ -55,11 +55,11 @@ def plot_density_lines(matrix, density, temperatures):
     density_scale = density[1]/density[0]
     den_val = density[0]
     for i in range(0, STEPS, 10):
-        den_val *= math.pow(density_scale, 10)
         line_plot = []
         for j in range(STEPS):
             line_plot.append(matrix[i, j])
-        plt.plot(temperatures, line_plot, linestyle='dashed', label=str(round((den_val/10**11), 3)))
+        plt.plot(temperatures, line_plot, linestyle='dashed', label=f"{den_val/1e11:.3f}")
+        den_val *= math.pow(density_scale, 10)
 
 
 def set_axes():
@@ -75,9 +75,9 @@ def plot_points(temperatures):
         plt.annotate(labels[i][7:], (x_coord, y_coord), textcoords='offset points', xytext=(5, 5), color="orange", fontsize=15, xycoords="data")
     plt.errorbar(x_coords, list(df.loc[:, "Flux Ratio"]), yerr=list(df.loc[:, "Flux Ratio Error"]), fmt='o', capsize=6, color=ERROR_COLOR)
     if len(sys.argv) >= 2 and sys.argv[1] == "--dust-correction":
-        plt.savefig("pyneb_plots/final_plot_dust_correction.png")
+        plt.savefig("../pyneb_plots/final_plot_dust_correction.png")
     else:
-        plt.savefig("pyneb_plots/final_plot.png")
+        plt.savefig("../pyneb_plots/final_plot.png")
 
 def main():
     temperatures = np.linspace(START_TEMP, STOP_TEMP, num=STEPS)
