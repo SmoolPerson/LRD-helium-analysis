@@ -51,22 +51,21 @@ def plot_density_lines(matrix, density, temperatures):
         line_plot = []
         for j in range(STEPS):
             line_plot.append(matrix[i, j])
-        plt.plot(temperatures, line_plot, linestyle='--', label=str(round((den_val/10**12), 3)))
+        plt.plot(temperatures, line_plot, linestyle='dashed', label=str(round((den_val/10**11), 3)))
 
 
 def set_axes():
     plt.xlabel("Temperature (K)")
     plt.ylabel("Flux ratio (He I $\\lambda$7065/He I $\\lambda$5876)")
-    plt.legend(title="Density ($10^{12} cm^{-3}$)")
+    plt.legend(title="Density ($10^{11} cm^{-3}$)")
 
 def plot_points(temperatures):
     labels = df.loc[:, "Observation"]
     for i in range(len(labels)): # not working idk why
         x_coord = x_coords[i]
         y_coord = df.loc[:, "Flux Ratio"][i]
-        plt.annotate(labels[i], (x_coord, y_coord), textcoords='offset points', xytext=(5, 5), color="orange", fontsize=7, xycoords="data")
-    #plt.scatter(x_coords, list(df.loc[:, "Flux Ratio"]), color='red', marker='x')
-    plt.errorbar(x_coords, list(df.loc[:, "Flux Ratio"]), yerr=list(df.loc[:, "Flux Ratio Error"]), fmt='o', capsize=6)
+        plt.annotate(labels[i][7:], (x_coord, y_coord), textcoords='offset points', xytext=(5, 5), color="orange", fontsize=15, xycoords="data")
+    plt.errorbar(x_coords, list(df.loc[:, "Flux Ratio"]), yerr=list(df.loc[:, "Flux Ratio Error"]), fmt='o', capsize=6, color="blue")
     plt.savefig("pyneb_plots/final_plot.png")
 
 def main():
