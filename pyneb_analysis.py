@@ -39,8 +39,7 @@ def populate_matrix(temperatures, density):
             matrix[j, i] = he1_7065/he1_5876
             if abs(temp - 10000) > 3000:
                 continue
-            else:
-                record_value(matrix[j, i], i)
+            record_value(matrix[j, i], i)
     return matrix
 
 def plot_density_lines(matrix, density, temperatures):

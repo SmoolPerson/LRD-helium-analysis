@@ -1,5 +1,6 @@
 from astropy.io import fits
 from astropy import units as u
+from dust_correction import dust_correct_flux
 from matplotlib import pyplot as plt
 import lime
 import numpy as np
@@ -20,7 +21,7 @@ def get_data_files():
         all_data.append((data_file, dot_id, plot_name))
     return all_data
 
-def load(dot):
+def load(dot, dot_id):
     hdul = fits.open('data/' + dot)
 
     wave = hdul[1].data["WAVELENGTH"]
@@ -36,7 +37,15 @@ def load(dot):
     for i in range(len(flux)):
         fixed_flux.append((flux[i] * u.Jy).to(u.erg / (u.cm * u.cm * u.s * u.AA), equivalencies=u.spectral_density(wave[i] * u.AA)).value)
         fixed_flux_err.append((error[i] * u.Jy).to(u.erg / (u.cm * u.cm * u.s * u.AA), equivalencies=u.spectral_density(wave[i] * u.AA)).value)
-    return (wave, np.array(fixed_flux), np.array(fixed_flux_err))
+    
+    fixed_flux = np.array(fixed_flux)
+    fixed_flux_err = np.array(fixed_flux_err)
+
+    z = REDSHIFT_VALUES[int(dot_id)]
+    fixed_flux = dust_correct_flux(wave, fixed_flux, z)
+    fixed_flux_err = dust_correct_flux(wave, fixed_flux_err, z)
+
+    return (wave, fixed_flux, fixed_flux_err)
 
 def profile(spec, plot_name, actual_lines, line):
     if line in list(actual_lines['wavelength'].keys()):
@@ -63,7 +72,7 @@ def write_data(profile_flux, profile_flux_error, line_name):
     columns['Profile Flux Error-' + line_name].append(profile_flux_error)
 
 def analyze(data_file, dot_id, plot_name):
-    wave, flux, error = load(data_file)
+    wave, flux, error = load(data_file, dot_id)
     print("Loading: ", plot_name)
     spec = lime.Spectrum(wave, flux, error, redshift=REDSHIFT_VALUES[int(dot_id)], units_flux='FLAM')
 
@@ -82,7 +91,7 @@ def analyze(data_file, dot_id, plot_name):
     columns['Observation'].append(plot_name)
 
     write_data(profile_flux1, profile_flux_error1, "He1_7065A")
-    write_data(profile_flux2, profile_flux_erro21, "He1_5876A")
+    write_data(profile_flux2, profile_flux_error2, "He1_5876A")
 
     spec.plot.spectrum(bands=actual_lines, show_cont=True, fname='spectrum-plots/detected_lines-' + plot_name + '.png')
 
