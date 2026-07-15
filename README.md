@@ -8,7 +8,11 @@ This project aims to plot and calculate flux ratios of the He I 5876 and He I 70
 
 `git clone https://github.com/SmoolPerson/LRD-helium-analysis.git`
 
-`cd LRD-helium-analysis/src`
+`cd LRD-helium-analysis`
+
+`mkdir plots pyneb_plots spectrum-plots flux data`
+
+`cd src`
 
 
 Install Python and venv using your package manager (these may already be installed by default, but only on some systems). For debian systems, the command would be:
