@@ -3,6 +3,7 @@ import numpy as np
 import math
 from matplotlib import pyplot as plt
 import pandas as pd
+import sys
 
 STEPS = 100
 
@@ -10,10 +11,17 @@ START_TEMP = 5500
 STOP_TEMP = 25000
 START_DEN = 9.5
 STOP_DEN = 13
+ERROR_COLOR = "blue"
 
 he1 = pn.RecAtom('He', 1)
 
-df = pd.read_csv('flux/flux_ratios.csv')
+df = None
+if len(sys.argv) >= 2 and sys.argv[1] == "--dust-correction":
+    df = pd.read_csv('flux/flux_ratios_corrected.csv')
+    ERROR_COLOR = "red"
+else:
+    df = pd.read_csv('flux/flux_ratios.csv')
+
 closest_ratios = [float('inf')] * len(df)
 x_coords = [0] * len(df)
 
@@ -65,8 +73,11 @@ def plot_points(temperatures):
         x_coord = x_coords[i]
         y_coord = df.loc[:, "Flux Ratio"][i]
         plt.annotate(labels[i][7:], (x_coord, y_coord), textcoords='offset points', xytext=(5, 5), color="orange", fontsize=15, xycoords="data")
-    plt.errorbar(x_coords, list(df.loc[:, "Flux Ratio"]), yerr=list(df.loc[:, "Flux Ratio Error"]), fmt='o', capsize=6, color="blue")
-    plt.savefig("pyneb_plots/final_plot.png")
+    plt.errorbar(x_coords, list(df.loc[:, "Flux Ratio"]), yerr=list(df.loc[:, "Flux Ratio Error"]), fmt='o', capsize=6, color=ERROR_COLOR)
+    if len(sys.argv) >= 2 and sys.argv[1] == "--dust-correction":
+        plt.savefig("pyneb_plots/final_plot_dust_correction.png")
+    else:
+        plt.savefig("pyneb_plots/final_plot.png")
 
 def main():
     temperatures = np.linspace(START_TEMP, STOP_TEMP, num=STEPS)

@@ -1,7 +1,11 @@
 import pandas as pd
 import numpy as np
+import sys
 
-df = pd.read_csv('flux/fluxes.csv')
+if len(sys.argv) >= 2 and sys.argv[1] == "--dust-correction":
+    df = pd.read_csv('flux/fluxes-corrected.csv')
+else:
+    df = pd.read_csv('flux/fluxes.csv')
 
 df = df.sort_values(by='Observation')
 
@@ -15,10 +19,13 @@ for i in range(len(df)):
 
     relative_error1 = current_row.loc["Profile Flux Error-He1_5876A"]/current_row.loc["Profile Flux-He1_5876A"]
     relative_error2 = current_row.loc["Profile Flux Error-He1_7065A"]/current_row.loc["Profile Flux-He1_7065A"]
-    print(relative_error1, relative_error2)
     ratios_dict["Observation"].append(current_row.loc["Observation"])
     ratios_dict["Flux Ratio"].append(ratio)
     ratios_dict["Flux Ratio Error"].append(ratio * np.sqrt(relative_error1*relative_error1 + relative_error2*relative_error2))
 
 ratios_df = pd.DataFrame(ratios_dict)
-ratios_df.to_csv('flux/flux_ratios.csv', index=False)
+
+if len(sys.argv) >= 2 and sys.argv[1] == "--dust-correction":
+    ratios_df.to_csv('flux/flux_ratios_corrected.csv', index=False)
+else:
+    ratios_df.to_csv('flux/flux_ratios.csv', index=False)

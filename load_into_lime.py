@@ -6,6 +6,7 @@ import lime
 import numpy as np
 import os
 import pandas as pd
+import sys
 
 REDSHIFT_VALUES = {1794: 3.681, 161695: 5.666, 169045: 5.239, 33842: 5.287, 101208: 5.682, 101393: 3.850, 100424: 4.953, 102364: 4.542, 35829: 6.684, 20504: 5.276}
 columns = {"Observation": [], "Profile Flux-He1_7065A": [], "Profile Flux Error-He1_7065A": [], "Profile Flux-He1_5876A": [], "Profile Flux Error-He1_5876A": []}
@@ -41,9 +42,11 @@ def load(dot, dot_id):
     fixed_flux = np.array(fixed_flux)
     fixed_flux_err = np.array(fixed_flux_err)
 
-    z = REDSHIFT_VALUES[int(dot_id)]
-    fixed_flux = dust_correct_flux(wave, fixed_flux, z, int(dot_id))
-    fixed_flux_err = dust_correct_flux(wave, fixed_flux_err, z, int(dot_id))
+    # check if user wanted to calculate dust_corrected flux
+    if len(sys.argv) >= 2 and sys.argv[1] == "--dust-correction":
+        z = REDSHIFT_VALUES[int(dot_id)]
+        fixed_flux = dust_correct_flux(wave, fixed_flux, z, int(dot_id))
+        fixed_flux_err = dust_correct_flux(wave, fixed_flux_err, z, int(dot_id))
 
     return (wave, fixed_flux, fixed_flux_err)
 
@@ -103,6 +106,9 @@ def main():
         analyze(data_file, dot_id, plot_name)
 
     df = pd.DataFrame(columns)
+    if len(sys.argv) >= 2 and sys.argv[1] == "--dust-correction":
+        df.to_csv('flux/fluxes-corrected.csv', index=False)
+        return
     df.to_csv('flux/fluxes.csv', index=False)
 
 if __name__ == "__main__":

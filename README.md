@@ -10,9 +10,11 @@ This project aims to plot and calculate flux ratios of the He I 5876 and He I 70
 
 `cd LRD-helium-analysis`
 
+
 Install Python and venv using your package manager (these may already be installed by default, but only on some systems). For debian systems, the command would be:
 
 `sudo apt install python3 python3-venv`
+
 
 Initialize and setup the virtual environment:
 
@@ -22,9 +24,11 @@ Initialize and setup the virtual environment:
 
 `pip install lime-stable pyneb astropy`
 
+
 If you want to view a plot of one of the data files:
 
 `python3 load_and_plot.py`
+
 
 If you want to calculate flux values and make plots:
 
@@ -32,9 +36,14 @@ If you want to calculate flux values and make plots:
 
 `python3 calculate_ratios.py`
 
+Pass the flag --dust-correct into both python files in order to perform dust correction.
+
+
 If you want to compare calculated flux ratios with theoretical values:
 
 `python3 pyneb_analysis.py`
+
+Use the flag --dust-correction to generate a plot of only dust corrected items
 
 ## Credits
 
