@@ -22,7 +22,7 @@ Initialize and setup the virtual environment:
 
 `pip install lime-stable pyneb astropy`
 
-If you want to view a simply plot of one of the data files:
+If you want to view a plot of one of the data files:
 
 `python3 load_and_plot.py`
 
