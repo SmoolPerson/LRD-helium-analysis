@@ -4,3 +4,4 @@ plots/
 pyneb_plots/
 spectrum-plots/
 flux/
+__pycache__/

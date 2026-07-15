@@ -42,8 +42,8 @@ def load(dot, dot_id):
     fixed_flux_err = np.array(fixed_flux_err)
 
     z = REDSHIFT_VALUES[int(dot_id)]
-    fixed_flux = dust_correct_flux(wave, fixed_flux, z)
-    fixed_flux_err = dust_correct_flux(wave, fixed_flux_err, z)
+    fixed_flux = dust_correct_flux(wave, fixed_flux, z, int(dot_id))
+    fixed_flux_err = dust_correct_flux(wave, fixed_flux_err, z, int(dot_id))
 
     return (wave, fixed_flux, fixed_flux_err)
 
@@ -64,7 +64,7 @@ def profile(spec, plot_name, actual_lines, line):
     return (None, None)
 
 def write_data(profile_flux, profile_flux_error, line_name):
-    if (profile_flux is not None and profile_flux < profile_flux_error * 2):
+    if (profile_flux is not None and profile_flux < profile_flux_error):
         profile_flux = None
         profile_flux_error = None
     
