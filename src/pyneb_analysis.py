@@ -17,7 +17,7 @@ he1 = pn.RecAtom('He', 1)
 
 df = None
 if len(sys.argv) >= 2 and sys.argv[1] == "--dust-correction":
-    df = pd.read_csv('../flux/fl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ux_ratios_corrected.csv')
+    df = pd.read_csv('../flux/flux_ratios_corrected.csv')
     ERROR_COLOR = "red"
 else:
     df = pd.read_csv('../flux/flux_ratios.csv')
