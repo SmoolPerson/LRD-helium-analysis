@@ -60,7 +60,7 @@ def plot_density_lines(matrix, density, temperatures):
         for j in range(STEPS):
             line_plot.append(matrix[i, j])
 
-        plt.plot(temperatures, line_plot, linestyle='dashed', label=f"{den_val/1e11:.3f}")
+        plt.plot(temperatures, line_plot, linestyle='dashed', label=f"{den_val/1e11:.2f}")
         den_val *= math.pow(density_scale, 10)
 
 
@@ -75,7 +75,7 @@ def plot_points(temperatures):
     for i in range(len(labels)): # not working idk why
         x_coord = x_coords[i]
         y_coord = df.loc[:, "Flux Ratio"][i]
-        plt.annotate(labels[i][7:], (x_coord, y_coord), textcoords='offset points', xytext=(5, 5), color="orange", fontsize=15, xycoords="data")
+        plt.annotate(labels[i][7:], (x_coord, y_coord), textcoords='offset points', xytext=(5, 5), color="black", fontsize=15, xycoords="data")
     plt.errorbar(x_coords, list(df.loc[:, "Flux Ratio"]), yerr=list(df.loc[:, "Flux Ratio Error"]), fmt='o', capsize=6, color=ERROR_COLOR)
     
     if len(sys.argv) >= 2 and sys.argv[1] == "--dust-correction":
