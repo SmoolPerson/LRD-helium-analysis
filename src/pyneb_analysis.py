@@ -50,6 +50,18 @@ def populate_matrix(temperatures, density):
             record_value(matrix[j, i], i)
     return matrix
 
+def plot_matrix(matrix, density, temperatures):
+    X, Y = np.meshgrid(temperatures, density)
+    ax = plt.gca()
+    
+    cmesh = plt.pcolormesh(X, Y, matrix)
+    plt.colorbar(cmesh)
+    ax.set_yscale('log')
+
+
+    plt.savefig("../pyneb_plots/pyneb_matrix.png")
+    plt.clf()
+
 def plot_density_lines(matrix, density, temperatures):
     # plot lines for each density
     density_scale = density[1]/density[0]
@@ -88,9 +100,10 @@ def main():
     density = np.logspace(START_DEN, STOP_DEN, num=STEPS)
 
     matrix = populate_matrix(temperatures, density)
-    plot_density_lines(matrix, density, temperatures)
-    set_axes()
-    plot_points(temperatures)
+    plot_matrix(matrix, density, temperatures)
+    #plot_density_lines(matrix, density, temperatures)
+    #set_axes()
+    #plot_points(temperatures)
 
 if __name__ == "__main__":
     main()
