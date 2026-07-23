@@ -2,7 +2,11 @@
 
 ## Explanation
 
-This project aims to plot and calculate flux ratios of the He I 5876 and He I 7065 lines in the spectrum of Little Red Dots (LRDs). It then compares each flux ratio to a predicted matrix of density and temperature values to provide an estimate of those metrics. The data used for this program is not available to the public.
+This project utilizes Helium emission spectra to calculate the density and temperature of Little Red Dots. The program computes the ratio between the flux values of He I 7065Å and He I 5876Å using the observed spectra. Then, it compares these values to a matrix of theoretical ratios simulated under a variety of astronomical conditions. It finally creates plots under pyneb_plots of the end result with the predicted temperatures and densities. Additional options are available in order to support dust correction for the spectra.
+
+## Data
+
+The 1D spectra used in this work are courtesy of the OCEANS collaboration. The OCEANS program (program ID 8410, PI Raymond Simons) is publicly accessible on the MAST database. The extractions used in this work will be made available in the coming months. For a full description of the reductions used in this work, see [Davis 2026](https://arxiv.org/pdf/2606.00258).
 
 ## Usage
 
@@ -10,10 +14,11 @@ This project aims to plot and calculate flux ratios of the He I 5876 and He I 70
 
 `cd LRD-helium-analysis`
 
-`mkdir plots pyneb_plots spectrum-plots flux data`
+Add plot/data directories.
 
-`cd src`
+`mkdir plots pyneb_plots spectrum-plots flux`
 
+Once the data is publicly released, download and move it to the data directory. A possible command sequence could be `wget "https://<data-url>" && unzip <data-file-name> && mv <data-file-name> data"`
 
 Install Python and venv using your package manager (these may already be installed by default, but only on some systems). For debian systems, the command would be:
 
@@ -26,15 +31,16 @@ Initialize and setup the virtual environment:
 
 `source ./.venv/bin/activate`
 
-`pip install lime-stable pyneb astropy`
+`pip install lime-stable pyneb astropy numpy pandas matplotlib``sudo apt install python3 python3-venv`
 
 
-If you want to view a plot of one of the data files:
+
+If you want to view a plot of one of the data files (saved as plots/wave_flux.png):
 
 `python3 load_and_plot.py`
 
 
-If you want to calculate flux values and make plots:
+If you want to calculate flux values and make plots identifying emission lines (flux values are stored in flux/ while plots are stored in plots/):
 
 `python3 load_into_lime.py`
 
