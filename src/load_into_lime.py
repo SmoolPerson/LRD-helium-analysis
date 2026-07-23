@@ -19,10 +19,11 @@ def create_fake_data():
     wave = np.linspace(4000, 9000, num=5001)
 
     # function for both wavelengths
-    flux_func_5876 = lambda x: gaussian.pdf(x, 5876, 30)
-    flux_func_7065 = lambda x: gaussian.pdf(x, 7065, 30) * 2 # amplify it by 2 to emulate a flux ratio
+    flux_func_5876 = lambda x: gaussian.pdf(x, 5876, 1) / 2000
+    flux_func_7065 = lambda x: gaussian.pdf(x, 7065, 1) / 1000 # amplify it by 2 to emulate a flux ratio
 
     flux = np.array([(flux_func_5876(w) + flux_func_7065(w))/2 for w in wave])
+    flux += np.random.rand(5001)/100000
     wave *= (1 + REDSHIFT_VALUES[20504])
     return(wave, flux)
 
