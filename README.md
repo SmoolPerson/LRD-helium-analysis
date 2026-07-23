@@ -38,11 +38,6 @@ You may need to use `./.venv/bin/activate.fish` for the fish shell.
 `cd src`
 
 
-If you want to view a plot of one of the data files (saved as plots/wave_flux.png):
-
-`python3 load_and_plot.py`
-
-
 If you want to calculate flux values and make plots identifying emission lines (flux values are stored in flux/ while plots are stored in plots/):
 
 `python3 load_into_lime.py`
