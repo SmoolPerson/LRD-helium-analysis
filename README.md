@@ -6,7 +6,7 @@ This project utilizes Helium emission spectra to calculate the density and tempe
 
 ## Data
 
-The 1D spectra used in this work are courtesy of the OCEANS collaboration. The OCEANS program (program ID 8410, PI Raymond Simons) is publicly accessible on the MAST database. The extractions used in this work will be made available in the coming months. For a full description of the reductions used in this work, see [Davis et al., 2026](https://arxiv.org/pdf/2606.00258).
+The 1D spectra used in this work are courtesy of the OCEANS collaboration. The OCEANS program (program ID 8410, PI Raymond Simons) is publicly accessible on the MAST database at https://mast.stsci.edu/search/ui/#/. The extractions used is not available currently, but will be released in the coming months. For a full description of the reductions used in this work, see [Davis et al., 2026](https://arxiv.org/pdf/2606.00258).
 
 ## Initial install
 
