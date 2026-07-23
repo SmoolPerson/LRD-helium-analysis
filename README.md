@@ -17,9 +17,12 @@ The 1D spectra used in this work are courtesy of the OCEANS collaboration. The O
 
 The data is not publicly available yet, but you can still the run the program on some artificial test data. Once it becomes public and there is a download URL, you can move it. A possible command sequence could be `wget "https://<data-url>" && unzip <data-file-name> && mv <extracted-directory-name> data`
 
-For distros other than debian, you may need to use a different package manager for the next command. For instance, on Arch Linux, you would need to use the `pacman` package manager.
+For distros other than debian and arch, you may need to use a different package manager for the next command. For instance, on Fedora, you would need to use the `dnf` package manager.
 
+Debian Systems:
 `sudo apt install python3 python3-venv -y`
+Arch Systems:
+`sudo pacman -S python3 --noconfirm`
 
 `python3 -m venv ./.venv`
 
