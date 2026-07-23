@@ -14,10 +14,6 @@ The 1D spectra used in this work are courtesy of the OCEANS collaboration. The O
 
 `cd LRD-helium-analysis`
 
-Add plot/data directories.
-
-`mkdir plots pyneb_plots spectrum-plots flux`
-
 Once the data is publicly released, download and move it to the data directory. A possible command sequence could be `wget "https://<data-url>" && unzip <data-file-name> && mv <data-file-name> data"`
 
 Install Python and venv using your package manager (these may already be installed by default, but only on some systems). For debian systems, the command would be:
