@@ -1,7 +1,2 @@
 .venv/
-data/
-plots/
-pyneb_plots/
-spectrum-plots/
-flux/
 __pycache__/

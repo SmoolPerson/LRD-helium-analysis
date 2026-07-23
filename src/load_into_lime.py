@@ -125,7 +125,7 @@ def analyze(data_file, dot_id, plot_name, fake=False):
 
 def main():
     
-    if len(sys.argv) >= 2 and sys.argv[1] == "--fake":
+    if len(sys.argv) >= 2 and sys.argv[1] == "--fake-data":
         analyze("fake", "20504", "fake-plot", fake=True)
     else:
 

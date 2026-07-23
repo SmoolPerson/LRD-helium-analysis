@@ -33,7 +33,7 @@ You may need to use `./.venv/bin/activate.fish` for the fish shell.
 
 `source ./.venv/bin/activate`
 
-`pip install lime-stable pyneb astropy numpy pandas matplotlib scipy`
+`pip install lime-stable pyneb astropy numpy pandas matplotlib scipy dust_extinction`
 
 `cd src`
 
