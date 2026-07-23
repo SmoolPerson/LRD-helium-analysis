@@ -7,9 +7,25 @@ import numpy as np
 import os
 import pandas as pd
 import sys
+from scipy.stats import norm as gaussian
 
 REDSHIFT_VALUES = {1794: 3.681, 161695: 5.666, 169045: 5.239, 33842: 5.287, 101208: 5.682, 101393: 3.850, 100424: 4.953, 102364: 4.542, 35829: 6.684, 20504: 5.276}
 columns = {"Observation": [], "Profile Flux-He1_7065A": [], "Profile Flux Error-He1_7065A": [], "Profile Flux-He1_5876A": [], "Profile Flux Error-He1_5876A": []}
+E = 2.718281828459045
+
+def create_fake_data():
+    # TODO: improve magic numbers here and include a proper configuration for the fake data
+    # empty numpy wave array
+    wave = np.linspace(4000, 9000, num=5001)
+
+    # function for both wavelengths
+    flux_func_5876 = lambda x: gaussian.pdf(x, 5876, 30)
+    flux_func_7065 = lambda x: gaussian.pdf(x, 7065, 30) * 2 # amplify it by 2 to emulate a flux ratio
+
+    flux = np.array([(flux_func_5876(w) + flux_func_7065(w))/2 for w in wave])
+    wave *= (1 + REDSHIFT_VALUES[20504])
+    return(wave, flux)
+
 
 def get_data_files():
     data_files = os.listdir('../data')
@@ -74,8 +90,15 @@ def write_data(profile_flux, profile_flux_error, line_name):
     columns['Profile Flux-' + line_name].append(profile_flux)
     columns['Profile Flux Error-' + line_name].append(profile_flux_error)
 
-def analyze(data_file, dot_id, plot_name):
-    wave, flux, error = load(data_file, dot_id)
+def analyze(data_file, dot_id, plot_name, fake=False):
+    wave, flux, error = (None, None, None)
+    if fake:
+        wave, flux = create_fake_data()
+        np.set_printoptions(threshold=np.inf)
+        error = None
+    else:
+        wave, flux, error = load(data_file, dot_id)
+    
     print("Loading: ", plot_name)
     spec = lime.Spectrum(wave, flux, error, redshift=REDSHIFT_VALUES[int(dot_id)], units_flux='FLAM')
 
@@ -100,10 +123,15 @@ def analyze(data_file, dot_id, plot_name):
 
 
 def main():
-    little_red_dots = get_data_files()
+    
+    if len(sys.argv) >= 2 and sys.argv[1] == "--fake":
+        analyze("fake", "20504", "fake-plot", fake=True)
+    else:
 
-    for data_file, dot_id, plot_name in little_red_dots:
-        analyze(data_file, dot_id, plot_name)
+        little_red_dots = get_data_files()
+
+        for data_file, dot_id, plot_name in little_red_dots:
+            analyze(data_file, dot_id, plot_name)
 
     df = pd.DataFrame(columns)
     if len(sys.argv) >= 2 and sys.argv[1] == "--dust-correction":

@@ -6,7 +6,7 @@ This project utilizes Helium emission spectra to calculate the density and tempe
 
 ## Data
 
-The 1D spectra used in this work are courtesy of the OCEANS collaboration. The OCEANS program (program ID 8410, PI Raymond Simons) is publicly accessible on the MAST database. The extractions used in this work will be made available in the coming months. For a full description of the reductions used in this work, see [Davis 2026](https://arxiv.org/pdf/2606.00258).
+The 1D spectra used in this work are courtesy of the OCEANS collaboration. The OCEANS program (program ID 8410, PI Raymond Simons) is publicly accessible on the MAST database. The extractions used in this work will be made available in the coming months. For a full description of the reductions used in this work, see [Davis et al., 2026](https://arxiv.org/pdf/2606.00258).
 
 ## Usage
 
@@ -29,10 +29,13 @@ Initialize and setup the virtual environment:
 
 `python3 -m venv ./.venv`
 
+You may need to use `./.venv/bin/activate.fish` for the fish shell.
+
 `source ./.venv/bin/activate`
 
-`pip install lime-stable pyneb astropy numpy pandas matplotlib``sudo apt install python3 python3-venv`
+`pip install lime-stable pyneb astropy numpy pandas matplotlib scipy`
 
+`cd src`
 
 
 If you want to view a plot of one of the data files (saved as plots/wave_flux.png):
@@ -46,15 +49,19 @@ If you want to calculate flux values and make plots identifying emission lines (
 
 `python3 calculate_ratios.py`
 
-Pass the flag --dust-correct into both python files in order to perform dust correction.
+Pass the flag `--fake-data` into load_into_lime.py to use synthetic data for testing.
+
+Pass the flag `--dust-correction` into both python files in order to perform dust correction.
+
+These two options are mutually exclusive as the Hydrogen lines are not present in the fake data.
 
 
-If you want to compare calculated flux ratios with theoretical values:
+If you want to compare calculated flux ratios with theoretical values (plots created in pyneb_plots/):
 
 `python3 pyneb_analysis.py`
 
-Use the flag --dust-correction to generate a plot of only dust corrected items
+Use the flag `--dust-correction` to generate a plot of only dust corrected items.
 
 ## Credits
 
-I want to credit Ian Bishop (https://github.com/DiagonalSquares) for helping me debug parts of my program. Big thanks to Kelcey Davis, who helped me understand and catch irregularities in my data, and served as a mentor throughout the project.
+I want to credit Ian Bishop (https://github.com/DiagonalSquares) for helping me debug parts of my program. I am very grateful to Kelcey Davis, who helped me understand and catch irregularities in my data, and served as a mentor throughout the project. The work in this project was done under the Institute for Computing in Research.

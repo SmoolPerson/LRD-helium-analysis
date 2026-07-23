@@ -102,7 +102,7 @@ def main():
     matrix = populate_matrix(temperatures, density)
     plot_matrix(matrix, density, temperatures)
     plot_density_lines(matrix, density, temperatures)
-    et_axes()
+    set_axes()
     plot_points(temperatures)
 
 if __name__ == "__main__":
