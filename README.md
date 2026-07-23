@@ -8,24 +8,20 @@ This project utilizes Helium emission spectra to calculate the density and tempe
 
 The 1D spectra used in this work are courtesy of the OCEANS collaboration. The OCEANS program (program ID 8410, PI Raymond Simons) is publicly accessible on the MAST database. The extractions used in this work will be made available in the coming months. For a full description of the reductions used in this work, see [Davis et al., 2026](https://arxiv.org/pdf/2606.00258).
 
-## Usage
+## Initial install
 
 `git clone https://github.com/SmoolPerson/LRD-helium-analysis.git`
 
+
 `cd LRD-helium-analysis`
 
-Once the data is publicly released, download and move it to the data directory. A possible command sequence could be `wget "https://<data-url>" && unzip <data-file-name> && mv <data-file-name> data"`
+The data is not publicly available yet, but once it becomes public and there is a download URL, you can move it. A possible command sequence could be `wget "https://<data-url>" && unzip <data-file-name> && mv <data-file-name> data`
 
-Install Python and venv using your package manager (these may already be installed by default, but only on some systems). For debian systems, the command would be:
+For distros other than debian, you may need to use a different package manager for the next command. For instance, on Arch Linux, you would need to use the `pacman` package manager.
 
-`sudo apt install python3 python3-venv`
-
-
-Initialize and setup the virtual environment:
+`sudo apt install python3 python3-venv -y`
 
 `python3 -m venv ./.venv`
-
-You may need to use `./.venv/bin/activate.fish` for the fish shell.
 
 `source ./.venv/bin/activate`
 
@@ -33,6 +29,11 @@ You may need to use `./.venv/bin/activate.fish` for the fish shell.
 
 `cd src`
 
+You will need to re-run the source command every time you restart your shell.
+
+## Usage
+
+### Part 1
 
 If you want to calculate flux values and make plots identifying emission lines (flux values are stored in flux/ while plots are stored in plots/):
 
@@ -46,6 +47,7 @@ Pass the flag `--dust-correction` into both python files in order to perform dus
 
 These two options are mutually exclusive as the Hydrogen lines are not present in the fake data.
 
+### Part 2
 
 If you want to compare calculated flux ratios with theoretical values (plots created in pyneb_plots/):
 
@@ -55,4 +57,4 @@ Use the flag `--dust-correction` to generate a plot of only dust corrected items
 
 ## Credits
 
-I want to credit Ian Bishop (https://github.com/DiagonalSquares) for helping me debug parts of my program. I am very grateful to Kelcey Davis, who helped me understand and catch irregularities in my data, and served as a mentor throughout the project. The work in this project was done under the Institute for Computing in Research.
+I want to credit [Ian Bishop](https://github.com/DiagonalSquares) for helping me debug parts of my program. I am very grateful to Kelcey Davis, who helped me understand and catch irregularities in my data, and served as a mentor throughout the project. The work in this project was done under the Institute for Computing in Research.
