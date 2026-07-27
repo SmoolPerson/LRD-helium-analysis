@@ -6,20 +6,37 @@ This project utilizes Helium emission spectra to calculate the density and tempe
 
 ## Data
 
-The 1D spectra used in this work are courtesy of the OCEANS collaboration. The OCEANS program (program ID 8410, PI Raymond Simons) is publicly accessible on the MAST database. The extractions used in this work will be made available in the coming months. For a full description of the reductions used in this work, see [Davis et al., 2026](https://arxiv.org/pdf/2606.00258).
+The 1D spectra used in this work are courtesy of the OCEANS collaboration. The OCEANS program (program ID 8410, PI Raymond Simons) is publicly accessible on the MAST database at https://mast.stsci.edu/search/ui/#/. The extractions used is not available currently, but will be released in the coming months. For a full description of the reductions used in this work, see [Davis et al., 2026](https://arxiv.org/pdf/2606.00258).
 
 ## Initial install
 
-`git clone https://github.com/SmoolPerson/LRD-helium-analysis.git`
+Install git using the package manager (if not already installed). This varies between distros; if you are on a Fedora system you may need to use the `dnf` package manager.
 
+The command for Arch:
+
+`sudo pacman -S git`
+
+The command for Debian:
+
+`sudo apt install git`
+
+`git clone https://github.com/SmoolPerson/LRD-helium-analysis.git`
 
 `cd LRD-helium-analysis`
 
-The data is not publicly available yet, but once it becomes public and there is a download URL, you can move it. A possible command sequence could be `wget "https://<data-url>" && unzip <data-file-name> && mv <extracted-directory-name> data`
+The data is not publicly available yet, but you can still the run the program on some artificial test data. Once it becomes public and there is a download URL, you can move it. A possible command sequence could be `wget "https://<data-url>" && unzip <data-file-name> && mv <extracted-directory-name> data`
 
-For distros other than debian, you may need to use a different package manager for the next command. For instance, on Arch Linux, you would need to use the `pacman` package manager.
+You may need to use the package manager again; this time to install Python
+
+Debian Systems:
 
 `sudo apt install python3 python3-venv -y`
+
+Arch Systems:
+
+`sudo pacman -S python3 --noconfirm`
+
+The next few commands are compatible with all systems:
 
 `python3 -m venv ./.venv`
 
