@@ -6,7 +6,7 @@ This project utilizes Helium emission spectra to calculate the density and tempe
 
 ## Data
 
-The 1D spectra used in this work are courtesy of the OCEANS collaboration. The OCEANS program (program ID 8410, PI Raymond Simons) is publicly accessible on the MAST database at https://mast.stsci.edu/search/ui/#/. The extractions used is not available currently, but will be released in the coming months. For a full description of the reductions used in this work, see [Davis et al., 2026](https://arxiv.org/pdf/2606.00258).
+The 1D spectra used in this work are courtesy of the OCEANS collaboration. The OCEANS program (program ID 8410, PI Raymond Simons) is publicly accessible on the MAST database at https://mast.stsci.edu/search/ui/#/. The extractions used are not available currently, but will be released in the coming months. For a full description of the reductions used in this work, see [Davis et al., 2026](https://arxiv.org/pdf/2606.00258). This repo will be updated with instructions to automatically download the necessary data once it becomes public.
 
 ## Initial install
 
@@ -32,7 +32,7 @@ git clone https://github.com/SmoolPerson/LRD-helium-analysis.git
 cd LRD-helium-analysis
 ```
 
-You may need to use the package manager again; this time to install Python
+You will need to use the package manager again to install Python.
 
 Debian Systems:
 
@@ -70,7 +70,7 @@ You will need to re-run the source command every time you restart your shell.
 
 ### Part 1
 
-If you want to calculate flux values and make plots identifying emission lines (flux values are stored in flux/ while plots are stored in plots/):
+If you want to calculate flux values and make plots identifying emission lines (flux values are stored in flux/ while plots are stored in plots/) with fake data:
 
 ```
 python3 load_into_lime.py --fake-data
@@ -80,7 +80,11 @@ python3 load_into_lime.py --fake-data
 python3 calculate_ratios.py
 ```
 
-The data is not publicly available yet, but you can still the run the program on some artificial test data. This is included in the command to run the Python file. Once the data becomes public and there is a download URL, you can run these steps instead.
+Once the data becomes public and there is a download URL, you can run these steps instead.
+
+```
+./download.sh <DOWNLOAD_URL>
+```
 
 ```
 python3 load_into_lime.py
