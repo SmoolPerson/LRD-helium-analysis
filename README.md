@@ -14,37 +14,59 @@ Install git using the package manager (if not already installed). This varies be
 
 The command for Arch:
 
-`sudo pacman -S git`
+```
+sudo pacman -S git
+```
 
 The command for Debian:
 
-`sudo apt install git`
+```
+sudo apt install git
+```
 
-`git clone https://github.com/SmoolPerson/LRD-helium-analysis.git`
+```
+git clone https://github.com/SmoolPerson/LRD-helium-analysis.git
+```
 
-`cd LRD-helium-analysis`
+```
+cd LRD-helium-analysis
+```
 
-The data is not publicly available yet, but you can still the run the program on some artificial test data. Once it becomes public and there is a download URL, you can move it. A possible command sequence could be `wget "https://<data-url>" && unzip <data-file-name> && mv <extracted-directory-name> data`
+The data is not publicly available yet, but you can still the run the program on some artificial test data. Once it becomes public and there is a download URL, you can move it. A possible command sequence could be 
+```wget "https://<data-url>" && unzip <data-file-name> && mv <extracted-directory-name> data
+```
 
 You may need to use the package manager again; this time to install Python
 
 Debian Systems:
 
-`sudo apt install python3 python3-venv -y`
+```
+sudo apt install python3 python3-venv -y
+```
 
 Arch Systems:
 
-`sudo pacman -S python3 --noconfirm`
+```
+sudo pacman -S python3 --noconfirm
+```
 
 The next few commands are compatible with all systems:
 
-`python3 -m venv ./.venv`
+```
+python3 -m venv ./.venv
+```
 
-`source ./.venv/bin/activate`
+```
+source ./.venv/bin/activate
+```
 
-`pip install lime-stable pyneb astropy numpy pandas matplotlib scipy dust_extinction`
+```
+pip install lime-stable pyneb astropy numpy pandas matplotlib scipy dust_extinction
+```
 
-`cd src`
+```
+cd src
+```
 
 You will need to re-run the source command every time you restart your shell.
 
@@ -54,13 +76,13 @@ You will need to re-run the source command every time you restart your shell.
 
 If you want to calculate flux values and make plots identifying emission lines (flux values are stored in flux/ while plots are stored in plots/):
 
-`python3 load_into_lime.py`
+```
+python3 load_into_lime.py --fake-data
+```
 
-`python3 calculate_ratios.py`
-
-Pass the flag `--fake-data` into load_into_lime.py to use synthetic data for testing.
-
-Pass the flag `--dust-correction` into both python files in order to perform dust correction.
+```
+python3 calculate_ratios.py
+```
 
 These two options are mutually exclusive as the Hydrogen lines are not present in the fake data.
 
@@ -68,9 +90,9 @@ These two options are mutually exclusive as the Hydrogen lines are not present i
 
 If you want to compare calculated flux ratios with theoretical values (plots created in pyneb_plots/):
 
-`python3 pyneb_analysis.py`
-
-Use the flag `--dust-correction` to generate a plot of only dust corrected items.
+```
+python3 pyneb_analysis.py
+```
 
 ## Credits
 
