@@ -32,11 +32,6 @@ git clone https://github.com/SmoolPerson/LRD-helium-analysis.git
 cd LRD-helium-analysis
 ```
 
-The data is not publicly available yet, but you can still the run the program on some artificial test data. Once it becomes public and there is a download URL, you can move it. A possible command sequence could be 
-```
-wget "https://<data-url>" && unzip <data-file-name> && mv <extracted-directory-name> data
-```
-
 You may need to use the package manager again; this time to install Python
 
 Debian Systems:
@@ -79,6 +74,16 @@ If you want to calculate flux values and make plots identifying emission lines (
 
 ```
 python3 load_into_lime.py --fake-data
+```
+
+```
+python3 calculate_ratios.py
+```
+
+The data is not publicly available yet, but you can still the run the program on some artificial test data. This is included in the command to run the Python file. Once the data becomes public and there is a download URL, you can run these steps instead.
+
+```
+python3 load_into_lime.py
 ```
 
 ```
