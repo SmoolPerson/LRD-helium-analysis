@@ -100,6 +100,7 @@ def main():
     density = np.logspace(START_DEN, STOP_DEN, num=STEPS)
 
     matrix = populate_matrix(temperatures, density)
+    print(x_coords)
     plot_matrix(matrix, density, temperatures)
     plot_density_lines(matrix, density, temperatures)
     set_axes()

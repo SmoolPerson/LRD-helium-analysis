@@ -32,6 +32,8 @@ def get_data_files():
     data_files = os.listdir('../data')
     all_data = []
     for data_file in data_files:
+        if data_file == '.gitignore':
+            continue
         # the name of the astronomical object
         dot_id = data_file[14:23]
         # the unique identifier for each data file
@@ -40,7 +42,8 @@ def get_data_files():
     return all_data
 
 def load(dot, dot_id):
-    hdul = fits.open('../data/' + dot)
+
+    hdul = fits.open('../data/' + dot) # Ignore any files that arent a .fits
 
     wave = hdul[1].data["WAVELENGTH"]
     flux = hdul[1].data["FLUX"]
