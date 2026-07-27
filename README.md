@@ -85,8 +85,6 @@ python3 load_into_lime.py --fake-data
 python3 calculate_ratios.py
 ```
 
-These two options are mutually exclusive as the Hydrogen lines are not present in the fake data.
-
 ### Part 2
 
 If you want to compare calculated flux ratios with theoretical values (plots created in pyneb_plots/):
