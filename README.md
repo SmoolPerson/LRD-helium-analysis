@@ -80,20 +80,6 @@ python3 load_into_lime.py --fake-data
 python3 calculate_ratios.py
 ```
 
-Once the data becomes public and there is a download URL, you can run these steps instead.
-
-```
-./download.sh <DOWNLOAD_URL>
-```
-
-```
-python3 load_into_lime.py
-```
-
-```
-python3 calculate_ratios.py
-```
-
 ### Part 2
 
 If you want to compare calculated flux ratios with theoretical values (plots created in pyneb_plots/):
