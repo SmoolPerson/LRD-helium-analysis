@@ -15,13 +15,13 @@ Install git using the package manager (if not already installed). This varies be
 The command for Arch:
 
 ```
-sudo pacman -S git
+sudo pacman -S git --noconfirm
 ```
 
 The command for Debian:
 
 ```
-sudo apt install git
+sudo apt install git -y
 ```
 
 ```
