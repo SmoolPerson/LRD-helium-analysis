@@ -33,7 +33,8 @@ cd LRD-helium-analysis
 ```
 
 The data is not publicly available yet, but you can still the run the program on some artificial test data. Once it becomes public and there is a download URL, you can move it. A possible command sequence could be 
-```wget "https://<data-url>" && unzip <data-file-name> && mv <extracted-directory-name> data
+```
+wget "https://<data-url>" && unzip <data-file-name> && mv <extracted-directory-name> data
 ```
 
 You may need to use the package manager again; this time to install Python
