@@ -9,7 +9,7 @@ STEPS = 100
 
 START_TEMP = 5500
 STOP_TEMP = 25000
-START_DEN = 9.5
+START_DEN = 5
 STOP_DEN = 13
 ERROR_COLOR = "blue"
 
@@ -72,14 +72,14 @@ def plot_density_lines(matrix, density, temperatures):
         for j in range(STEPS):
             line_plot.append(matrix[i, j])
 
-        plt.plot(temperatures, line_plot, linestyle='dashed', label=f"{den_val/1e11:.2f}")
+        plt.plot(temperatures, line_plot, linestyle='dashed', label=f"{math.log10(den_val):.2f}")
         den_val *= math.pow(density_scale, 10)
 
 
 def set_axes():
     plt.xlabel("Temperature (K)")
     plt.ylabel("Flux ratio (He I $\\lambda$7065/He I $\\lambda$5876)")
-    plt.legend(title="Density ($10^{11} cm^{-3}$)")
+    plt.legend(title="Density ($\\log_{10}(cm^{-3})$)")
 
 def plot_points(temperatures):
     labels = df.loc[:, "Observation"]

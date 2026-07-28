@@ -67,7 +67,7 @@ def load(dot, dot_id):
         z = REDSHIFT_VALUES[int(dot_id)]
         fixed_flux = dust_correct_flux(wave, fixed_flux, z, int(dot_id))
         fixed_flux_err = dust_correct_flux(wave, fixed_flux_err, z, int(dot_id))
-
+    wave /= (1 + REDSHIFT_VALUES[int(dot_id)])
     return (wave, fixed_flux, fixed_flux_err)
 
 def profile(spec, plot_name, actual_lines, line):
@@ -104,7 +104,7 @@ def analyze(data_file, dot_id, plot_name, fake=False):
         wave, flux, error = load(data_file, dot_id)
     
     print("Loading: ", plot_name)
-    spec = lime.Spectrum(wave, flux, error, redshift=REDSHIFT_VALUES[int(dot_id)], units_flux='FLAM')
+    spec = lime.Spectrum(wave, flux, error, units_flux='FLAM')
 
     # Starts with a large tolerance of 3 standard devs, then gradually tightens the continuum
     spec.fit.continuum([3, 3, 3], [3.0, 2.0, 1.0])
