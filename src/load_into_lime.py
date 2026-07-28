@@ -24,7 +24,6 @@ def create_fake_data():
 
     flux = np.array([(flux_func_5876(w) + flux_func_7065(w))/2 for w in wave])
     flux += np.random.rand(5001)/100000
-    wave *= (1 + REDSHIFT_VALUES[20504])
     return(wave, flux)
 
 
