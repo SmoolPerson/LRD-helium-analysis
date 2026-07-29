@@ -88,6 +88,67 @@ If you want to compare calculated flux ratios with theoretical values (plots cre
 python3 pyneb_analysis.py
 ```
 
+## Build Media
+
+Here are instructions for building the report and both presentations.
+
+### Report
+
+Install tex: depending on your distribution these instructions may vary.
+
+Debian Systems:
+
+```
+sudo apt install texlive-full
+```
+
+Arch Systems:
+
+```
+sudo pacman -S texlive-basic texlive-latex texlive-latexrecommended texlive-latexextra texlive-fontsrecommended
+```
+
+Change directory to where the paper files are located. This command assumes you are in the root directory of the project.
+
+```
+cd ./media/paper
+```
+
+Build the paper
+
+```
+pdflatex main.tex && bibtex main && pdflatex main.tex && pdflatex main.tex
+```
+
+The compiled paper is now written to main.pdf in the current directory.
+
+### Presentations
+
+Install LibreOffice Impress
+
+Debian Systems:
+
+```
+sudo apt install libreoffice-impress
+```
+
+Arch Systems:
+
+```
+sudo pacman -S libreoffice-fresh
+```
+
+Now build the pdfs. Be sure you are at the root directory of the project before running these commands.
+
+```
+libreoffice --headless --convert-to pdf --outdir ./media/presentation ./media/presentation/Helium.odp
+```
+
+```
+libreoffice --headless --convert-to pdf --outdir ./media/presentation ./media/presentation/calculuspresentation.odp
+```
+
+
 ## Credits
 
 I want to credit [Ian Bishop](https://github.com/DiagonalSquares) for helping me debug parts of my program. I am very grateful to Kelcey Davis, who helped me understand and catch irregularities in my data, and served as a mentor throughout the project. The work in this project was done under the Institute for Computing in Research.
