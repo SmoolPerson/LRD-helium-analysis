@@ -24,14 +24,17 @@ else:
 
 closest_ratios = [float('inf')] * len(df)
 x_coords = [0] * len(df)
+y_coords = [0] * len(df)
 
-def record_value(val, i):
+def record_value(val, i, j):
     for k in range(len(df)):
         row = df.iloc[k]
         diff = abs(float(row.loc["Flux Ratio"]) - val)
         if diff < closest_ratios[k]:
             closest_ratios[k] = diff
-            x_coords[k] = ((i + 0.5) / STEPS) * (STOP_TEMP - START_TEMP) + START_TEMP
+            x_coords[k] = ((i) / STEPS) * (STOP_TEMP - START_TEMP) + START_TEMP
+            y_coords[k] = math.exp(((j) / STEPS) * (math.log(10**STOP_DEN) - math.log(10**START_DEN)) + math.log(10**START_DEN))
+
 
 def populate_matrix(temperatures, density):
     matrix = np.zeros((STEPS, STEPS))
@@ -47,7 +50,7 @@ def populate_matrix(temperatures, density):
             matrix[j, i] = he1_7065/he1_5876
             if abs(temp - 10000) > 3000:
                 continue
-            record_value(matrix[j, i], i)
+            record_value(matrix[j, i], i, j)
     return matrix
 
 def plot_matrix(matrix, density, temperatures):
@@ -55,8 +58,13 @@ def plot_matrix(matrix, density, temperatures):
     ax = plt.gca()
     
     cmesh = plt.pcolormesh(X, Y, matrix)
-    plt.colorbar(cmesh)
+    cbar = plt.colorbar(cmesh)
+    cbar.set_label("Flux Ratio")
     ax.set_yscale('log')
+
+    plt.xlabel(r"Temperature ($K$)")
+    plt.ylabel(r"Density ($cm^{-3}$)")
+    plt.title(r"Flux Ratios ($\frac{He I 7065\AA}{He I 5876\AA}$)")
 
 
     plt.savefig("../pyneb_plots/pyneb_matrix.png")
@@ -100,7 +108,9 @@ def main():
     density = np.logspace(START_DEN, STOP_DEN, num=STEPS)
 
     matrix = populate_matrix(temperatures, density)
+    print(y_coords)
     print(x_coords)
+    print(list(df.loc[:, "Observation"]))
     plot_matrix(matrix, density, temperatures)
     plot_density_lines(matrix, density, temperatures)
     set_axes()
