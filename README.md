@@ -24,6 +24,8 @@ The command for Debian:
 sudo apt install git -y
 ```
 
+The next few commands are compatible with all systems:
+
 ```
 git clone https://github.com/SmoolPerson/LRD-helium-analysis.git
 ```
