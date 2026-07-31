@@ -138,14 +138,10 @@ Arch Systems:
 sudo pacman -S libreoffice-fresh
 ```
 
-Now build the pdfs. Be sure you are at the root directory of the project before running these commands.
+Now build the PDFs. This command assumes you are at the root directory of the project before running these commands.
 
 ```
 libreoffice --headless --convert-to pdf --outdir ./media/presentation ./media/presentation/Helium.odp
-```
-
-```
-libreoffice --headless --convert-to pdf --outdir ./media/presentation ./media/presentation/calculuspresentation.odp
 ```
 
 
