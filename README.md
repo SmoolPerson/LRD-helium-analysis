@@ -94,7 +94,7 @@ Here are instructions for building the report and both presentations.
 
 ### Report
 
-Install tex: depending on your distribution these instructions may vary.
+Install tex: depending on your distribution these instructions may vary, and you may have to use another package manager.
 
 Debian Systems:
 
@@ -107,22 +107,6 @@ Arch Systems:
 ```
 sudo pacman -S texlive-basic texlive-latex texlive-latexrecommended texlive-latexextra texlive-fontsrecommended
 ```
-
-Change directory to where the paper files are located. This command assumes you are in the root directory of the project.
-
-```
-cd ./media/paper
-```
-
-Build the paper
-
-```
-pdflatex main.tex && bibtex main && pdflatex main.tex && pdflatex main.tex
-```
-
-The compiled paper is now written to main.pdf in the current directory.
-
-### Presentations
 
 Install LibreOffice Impress
 
@@ -138,12 +122,11 @@ Arch Systems:
 sudo pacman -S libreoffice-fresh
 ```
 
-Now build the PDFs. This command assumes you are at the root directory of the project before running these commands.
+Now build both the presentation and paper. Be sure you are in the root directory of the project when you run this command.
 
 ```
-libreoffice --headless --convert-to pdf --outdir ./media/presentation ./media/presentation/Helium.odp
+chmod +x build_media.sh && ./build_media.sh
 ```
-
 
 ## Credits
 
