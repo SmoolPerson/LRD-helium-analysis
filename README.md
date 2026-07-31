@@ -126,6 +126,8 @@ Now build both the presentation and paper. Be sure you are in the root directory
 chmod +x build_media.sh && ./build_media.sh
 ```
 
+You can find the built files in the media-builds/ directory.
+
 ## Credits
 
 I want to credit [Ian Bishop](https://github.com/DiagonalSquares) for helping me debug parts of my program. I am very grateful to Kelcey Davis, who helped me understand and catch irregularities in my data, and served as a mentor throughout the project. The work in this project was done under the Institute for Computing in Research.
