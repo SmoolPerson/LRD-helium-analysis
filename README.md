@@ -43,7 +43,7 @@ sudo apt install python3 python3-venv -y
 Arch Systems:
 
 ```
-sudo pacman -S python3 --noconfirm
+sudo pacman -S python --noconfirm
 ```
 
 The next few commands are compatible with all systems:
@@ -90,16 +90,14 @@ python3 pyneb_analysis.py
 
 ## Build Media
 
-Here are instructions for building the report and both presentations.
-
-### Report
+Here are instructions for building the report and the presentation.
 
 Install tex: depending on your distribution these instructions may vary, and you may have to use another package manager.
 
 Debian Systems:
 
 ```
-sudo apt install texlive-full
+sudo apt install texlive-base texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
 ```
 
 Arch Systems:
