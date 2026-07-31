@@ -72,7 +72,7 @@ You will need to re-run the source command every time you restart your shell.
 
 ### Part 1
 
-If you want to calculate flux values and make plots identifying emission lines (flux values are stored in flux/ while plots are stored in plots/) with fake data:
+If you want to calculate flux values and make plots identifying emission lines (flux values are stored in flux/, plots are stored in plots/, and spectrum plots are stored in spectrum-plots/) with fake data:
 
 ```
 python3 load_into_lime.py --fake-data
